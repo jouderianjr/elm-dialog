@@ -5,6 +5,7 @@ module Simple.App exposing (main)
 When the user clicks a button, the counter will increment and a dialog
 will pop up alerting them about the new value. When they click Ok, the
 dialog goes away.
+
 -}
 
 import Dialog
