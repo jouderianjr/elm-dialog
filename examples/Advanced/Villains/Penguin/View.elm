@@ -27,7 +27,7 @@ dialog model =
                 , containerClass = Just "penguin-modal-container"
                 , header = Just (h1 [] [ text "Penguin says, \"Ouch!\"" ])
                 , body = Just (text "The penguin tries to dodge, which goes badly because penguins lack grace on land.")
-                , footer = Just (actionButton ( Close, "Take the pain" ))
+                , footer = [ actionButton ( Close, "Take the pain" ) ]
                 }
 
         Warking ->
@@ -36,5 +36,5 @@ dialog model =
                 , containerClass = Just "penguin-modal-container"
                 , header = Just (h1 [] [ text "Penguin says, \"Wark!\"" ])
                 , body = Just (text "The Penguin laughs his weird laugh")
-                , footer = Just (actionButton ( Close, "Calm down" ))
+                , footer = [ actionButton ( Close, "Calm down" ) ]
                 }

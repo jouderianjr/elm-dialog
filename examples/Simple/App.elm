@@ -103,13 +103,17 @@ dialogConfig model =
     , header = Just (h3 [] [ text "1 Up!" ])
     , body = Just (text ("The counter ticks up to " ++ (toString model.counter) ++ "."))
     , footer =
-        Just
-            (button
-                [ class "btn btn-success"
-                , onClick Acknowledge
-                ]
-                [ text "OK" ]
-            )
+        [ button
+            [ class "btn btn-success"
+            , onClick Acknowledge
+            ]
+            [ text "OK" ]
+        , button
+            [ class "btn btn-danger"
+            , onClick Acknowledge
+            ]
+            [ text "Cancel" ]
+        ]
     }
 
 

@@ -38,13 +38,12 @@ right at the top of the DOM tree, like so:
                    , containerClass = Just "your-container-class"
                    , header = Just (text "Alert!")
                    , body = Just (p [] [text "Let me tell you something important..."])
-                   , footer = Nothing
+                   , footer = []
                    }
              else
               Nothing
             )
         ]
-
 
 It's then up to you to replace `model.shouldShowDialog` with whatever
 logic should cause the dialog to be displayed, and to handle an
@@ -96,7 +95,7 @@ view maybeConfig =
                             Just config ->
                                 [ wrapHeader config.closeMessage config.header
                                 , maybe empty wrapBody config.body
-                                , maybe empty wrapFooter config.footer
+                                , wrapFooter config.footer
                                 ]
                         )
                     ]
@@ -128,10 +127,10 @@ wrapBody body =
         [ body ]
 
 
-wrapFooter : Html msg -> Html msg
+wrapFooter : List (Html msg) -> Html msg
 wrapFooter footer =
     div [ class "modal-footer" ]
-        [ footer ]
+        footer
 
 
 backdrop : Maybe (Config msg) -> Html msg
@@ -154,7 +153,7 @@ type alias Config msg =
     , containerClass : Maybe String
     , header : Maybe (Html msg)
     , body : Maybe (Html msg)
-    , footer : Maybe (Html msg)
+    , footer : List (Html msg)
     }
 
 
@@ -169,7 +168,7 @@ map f config =
     , containerClass = config.containerClass
     , header = Maybe.map (Html.map f) config.header
     , body = Maybe.map (Html.map f) config.body
-    , footer = Maybe.map (Html.map f) config.footer
+    , footer = List.map (Html.map f) config.footer
     }
 
 

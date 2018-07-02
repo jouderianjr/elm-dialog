@@ -23,7 +23,7 @@ dialog model =
             , containerClass = Just "batman-modal-container"
             , header = Just (h1 [] [ text "Kapow!" ])
             , body = Just (text "Batman swipes at you!")
-            , footer = Just (actionButton ( Finished, "OK" ))
+            , footer = [ actionButton ( Finished, "OK" ) ]
             }
     else
         Nothing
