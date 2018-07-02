@@ -1,5 +1,7 @@
 # Elm Dialog - A Modal Dialog Widget for Elm
 
+### Disclaimer: This package was created by @krisajenkins. As the original repository seems not updated for a while I decided fork it.
+
 Elm modal dialog boxes that fits in neatly with the Elm architecture.
 
 ## Aims
