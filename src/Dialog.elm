@@ -3,6 +3,7 @@ module Dialog exposing (Config, view, map, mapMaybe)
 {-| Elm Modal Dialogs.
 
 @docs Config, view, map, mapMaybe
+
 -}
 
 import Exts.Html.Bootstrap exposing (..)
@@ -74,7 +75,7 @@ view maybeConfig =
             [ div
                 ([ classList
                     [ ( "modal", True )
-                    , ( "in", displayed )
+                    , ( "show", displayed )
                     ]
                  , style
                     [ ( "display"
@@ -110,14 +111,14 @@ wrapHeader closeMessage header =
         empty
     else
         div [ class "modal-header" ]
-            [ maybe empty closeButton closeMessage
-            , Maybe.withDefault empty header
+            [ h5 [ class "modal-title" ] [ Maybe.withDefault empty header ]
+            , maybe empty closeButton closeMessage
             ]
 
 
 closeButton : msg -> Html msg
 closeButton closeMessage =
-    button [ class "close", onClick closeMessage ]
+    button [ type_ "button", class "close", onClick closeMessage ]
         [ text "x" ]
 
 
@@ -135,7 +136,7 @@ wrapFooter footer =
 
 backdrop : Maybe (Config msg) -> Html msg
 backdrop config =
-    div [ classList [ ( "modal-backdrop in", isJust config ) ] ]
+    div [ classList [ ( "modal-backdrop show", isJust config ) ] ]
         []
 
 
@@ -147,6 +148,7 @@ Use only the ones you want and set the others to `Nothing`.
 
 The `closeMessage` is an optional `Signal.Message` we will send when the user
 clicks the 'X' in the top right. If you don't want that X displayed, use `Nothing`.
+
 -}
 type alias Config msg =
     { closeMessage : Maybe msg
@@ -157,8 +159,7 @@ type alias Config msg =
     }
 
 
-{-|
-This function is useful when nesting components with the Elm
+{-| This function is useful when nesting components with the Elm
 Architecture. It lets you transform the messages produced by a
 subtree.
 -}

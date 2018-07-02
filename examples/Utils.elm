@@ -12,8 +12,12 @@ both f ( x, y ) =
 
 viewTab : (view -> msg) -> view -> ( view, String ) -> Html msg
 viewTab viewMsg currentView ( view, title ) =
-    li [ classList [ ( "active", currentView == view ) ] ]
-        [ a [ onClick (viewMsg view) ]
+    li [ class "nav-item" ]
+        [ a
+            [ classList [ ( "nav-link", True ), ( "active", currentView == view ) ]
+            , onClick (viewMsg view)
+            , href "#"
+            ]
             [ text title ]
         ]
 
@@ -47,7 +51,7 @@ debuggingView data =
 bootstrap : Html msg
 bootstrap =
     node "link"
-        [ href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        [ href "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         , rel "stylesheet"
         ]
         []
