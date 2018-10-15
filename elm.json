@@ -18,9 +18,7 @@
         "krisajenkins/elm-exts": "28.0.0 <= v < 29.0.0"
     },
     "test-dependencies": {
-        "direct": {
-            "elm-explorations/test": "1.1.0",
-        },
+        "direct": {},
         "indirect": {}
     }
 }
