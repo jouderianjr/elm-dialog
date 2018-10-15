@@ -1,4 +1,4 @@
-module Advanced.Villains.Penguin.View exposing (root, dialog)
+module Advanced.Villains.Penguin.View exposing (dialog, root)
 
 import Advanced.Villains.Penguin.Types exposing (..)
 import Dialog
@@ -10,7 +10,11 @@ root : Model -> Html Msg
 root model =
     div []
         [ h2 [] [ text "Penguin" ]
-        , debuggingView model
+        , debuggingView
+            [ ( "warks", String.fromInt model.warks )
+            , ( "health", String.fromInt model.health )
+            , ( "state", penquinStateToString model.state )
+            ]
         , actionButton ( Wark, "Wark!" )
         ]
 

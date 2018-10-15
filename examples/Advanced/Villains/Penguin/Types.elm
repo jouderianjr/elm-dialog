@@ -1,4 +1,4 @@
-module Advanced.Villains.Penguin.Types exposing (..)
+module Advanced.Villains.Penguin.Types exposing (Model, Msg(..), PenguinState(..), penquinStateToString)
 
 
 type PenguinState
@@ -18,3 +18,16 @@ type Msg
     = Wark
     | Close
     | TakeDamage
+
+
+penquinStateToString : PenguinState -> String
+penquinStateToString state =
+    case state of
+        Quiet ->
+            "Quiet"
+
+        Warking ->
+            "Warking"
+
+        Hurt ->
+            "Hurt"

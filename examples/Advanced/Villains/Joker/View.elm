@@ -1,4 +1,4 @@
-module Advanced.Villains.Joker.View exposing (root, dialog)
+module Advanced.Villains.Joker.View exposing (dialog, root)
 
 import Advanced.Villains.Joker.Types exposing (..)
 import Dialog
@@ -10,7 +10,11 @@ root : Model -> Html Msg
 root model =
     div []
         [ h2 [] [ text "Joker" ]
-        , debuggingView model
+        , debuggingView
+            [ ( "shots", String.fromInt model.shots )
+            , ( "health", String.fromInt model.health )
+            , ( "state", jokerStateToString model.state )
+            ]
         ]
 
 

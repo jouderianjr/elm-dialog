@@ -1,4 +1,4 @@
-module Advanced.Villains.Joker.Types exposing (..)
+module Advanced.Villains.Joker.Types exposing (JokerState(..), Model, Msg(..), jokerStateToString)
 
 
 type JokerState
@@ -17,3 +17,13 @@ type Msg
     = Shoot
     | Close
     | TakeDamage
+
+
+jokerStateToString : JokerState -> String
+jokerStateToString state =
+    case state of
+        Laughing ->
+            "Laughing"
+
+        Screaming ->
+            "Screaming"

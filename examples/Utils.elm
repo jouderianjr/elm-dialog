@@ -1,4 +1,4 @@
-module Utils exposing (..)
+module Utils exposing (actionButton, attackButton, bootstrap, both, debuggingView, viewTab)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -40,11 +40,17 @@ attackButton attackMsg label =
         [ text label ]
 
 
-debuggingView : a -> Html msg
+debuggingView : List ( String, String ) -> Html msg
 debuggingView data =
+    let
+        formattedData =
+            data
+                |> List.map (\( k, v ) -> k ++ " = " ++ v)
+                |> String.join ", "
+    in
     div [ class "alert alert-info" ]
         [ code []
-            [ text (toString data) ]
+            [ text <| "{ " ++ formattedData ++ " }" ]
         ]
 
 

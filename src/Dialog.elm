@@ -7,8 +7,7 @@ module Dialog exposing (Config, view, map, mapMaybe)
 -}
 
 import Exts.Html.Bootstrap exposing (..)
-import Exts.Maybe exposing (maybe, isJust)
-import Html
+import Exts.Maybe exposing (isJust, maybe)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -17,7 +16,7 @@ import Maybe exposing (andThen)
 
 {-| Renders a modal dialog whenever you supply a `Config msg`.
 
-To use this, include this view in your *top-level* view function,
+To use this, include this view in your _top-level_ view function,
 right at the top of the DOM tree, like so:
 
     type Message
@@ -61,54 +60,53 @@ view maybeConfig =
         displayed =
             isJust maybeConfig
     in
-        div
-            (case
-                maybeConfig
-                    |> Maybe.andThen .containerClass
-             of
-                Nothing ->
-                    []
+    div
+        (case
+            maybeConfig
+                |> Maybe.andThen .containerClass
+         of
+            Nothing ->
+                []
 
-                Just containerClass ->
-                    [ class containerClass ]
-            )
-            [ div
-                ([ classList
-                    [ ( "modal", True )
-                    , ( "show", displayed )
-                    ]
-                 , style
-                    [ ( "display"
-                      , if displayed then
-                            "block"
-                        else
-                            "none"
-                      )
-                    ]
-                 ]
-                )
-                [ div [ class "modal-dialog" ]
-                    [ div [ class "modal-content" ]
-                        (case maybeConfig of
-                            Nothing ->
-                                [ empty ]
-
-                            Just config ->
-                                [ wrapHeader config.closeMessage config.header
-                                , maybe empty wrapBody config.body
-                                , wrapFooter config.footer
-                                ]
-                        )
-                    ]
+            Just containerClass ->
+                [ class containerClass ]
+        )
+        [ div
+            [ classList
+                [ ( "modal", True )
+                , ( "show", displayed )
                 ]
-            , backdrop maybeConfig
+            , style "display"
+                (if displayed then
+                    "block"
+
+                 else
+                    "none"
+                )
             ]
+            [ div [ class "modal-dialog" ]
+                [ div [ class "modal-content" ]
+                    (case maybeConfig of
+                        Nothing ->
+                            [ empty ]
+
+                        Just config ->
+                            [ wrapHeader config.closeMessage config.header
+                            , maybe empty wrapBody config.body
+                            , wrapFooter config.footer
+                            ]
+                    )
+                ]
+            ]
+        , backdrop maybeConfig
+        ]
 
 
 wrapHeader : Maybe msg -> Maybe (Html msg) -> Html msg
 wrapHeader closeMessage header =
     if closeMessage == Nothing && header == Nothing then
         empty
+
     else
         div [ class "modal-header" ]
             [ h5 [ class "modal-title" ] [ Maybe.withDefault empty header ]

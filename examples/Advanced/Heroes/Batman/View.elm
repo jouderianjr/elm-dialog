@@ -1,4 +1,4 @@
-module Advanced.Heroes.Batman.View exposing (root, dialog)
+module Advanced.Heroes.Batman.View exposing (dialog, root)
 
 import Advanced.Heroes.Batman.Types exposing (..)
 import Dialog
@@ -10,7 +10,16 @@ root : Model -> Html Msg
 root model =
     div []
         [ h2 [] [ text "Batman" ]
-        , debuggingView model
+        , debuggingView
+            [ ( "kapows", String.fromInt model.kapows )
+            , ( "showDialog"
+              , if model.showDialog then
+                    "True"
+
+                else
+                    "False"
+              )
+            ]
         , attackButton Kapow "Kapow!"
         ]
 
@@ -25,5 +34,6 @@ dialog model =
             , body = Just (text "Batman swipes at you!")
             , footer = [ actionButton ( Finished, "OK" ) ]
             }
+
     else
         Nothing

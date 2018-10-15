@@ -8,12 +8,13 @@ dialog goes away.
 
 -}
 
+import Browser
 import Dialog
-import Html
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Utils exposing (..)
+
 
 
 ------------------------------------------------------------
@@ -78,9 +79,9 @@ or not.
 -}
 view : Model -> Html Msg
 view model =
-    div [ style [ ( "margin", "45px" ) ] ]
+    div [ style "margin" "45px" ]
         [ bootstrap
-        , h2 [] [ text (toString model.counter) ]
+        , h2 [] [ text (String.fromInt model.counter) ]
         , button
             [ class "btn btn-info"
             , onClick Increment
@@ -89,6 +90,7 @@ view model =
         , Dialog.view
             (if model.showDialog then
                 Just (dialogConfig model)
+
              else
                 Nothing
             )
@@ -102,7 +104,7 @@ dialogConfig model =
     { closeMessage = Just Acknowledge
     , containerClass = Nothing
     , header = Just (h3 [] [ text "1 Up!" ])
-    , body = Just (text ("The counter ticks up to " ++ (toString model.counter) ++ "."))
+    , body = Just (text ("The counter ticks up to " ++ String.fromInt model.counter ++ "."))
     , footer =
         [ button
             [ class "btn btn-success"
@@ -124,10 +126,10 @@ dialogConfig model =
 ------------------------------------------------------------
 
 
-main : Program Never Model Msg
+main : Program () Model Msg
 main =
-    Html.program
-        { init = initialState
+    Browser.element
+        { init = \_ -> initialState
         , view = view
         , update = update
         , subscriptions = always Sub.none

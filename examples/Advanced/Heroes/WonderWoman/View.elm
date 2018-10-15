@@ -1,4 +1,4 @@
-module Advanced.Heroes.WonderWoman.View exposing (root, dialog)
+module Advanced.Heroes.WonderWoman.View exposing (dialog, root)
 
 import Advanced.Heroes.WonderWoman.Types exposing (..)
 import Dialog
@@ -10,7 +10,7 @@ root : Model -> Html Msg
 root model =
     div []
         [ h2 [] [ text "WonderWoman" ]
-        , debuggingView model
+        , debuggingView [ ( "swordSwipes", String.fromInt model.swordSwipes ) ]
         ]
 
 

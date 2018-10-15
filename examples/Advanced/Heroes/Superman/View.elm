@@ -1,4 +1,4 @@
-module Advanced.Heroes.Superman.View exposing (root, dialog)
+module Advanced.Heroes.Superman.View exposing (dialog, root)
 
 import Advanced.Heroes.Superman.Types exposing (..)
 import Dialog
@@ -10,7 +10,7 @@ root : Model -> Html Msg
 root model =
     div []
         [ h2 [] [ text "Superman" ]
-        , debuggingView model
+        , debuggingView [ ( "punches", String.fromInt model.punches ) ]
         ]
 
 
