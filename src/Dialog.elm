@@ -6,8 +6,6 @@ module Dialog exposing (Config, view, map, mapMaybe)
 
 -}
 
-import Exts.Html.Bootstrap exposing (..)
-import Exts.Maybe exposing (isJust, maybe)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -58,7 +56,7 @@ view : Maybe (Config msg) -> Html msg
 view maybeConfig =
     let
         displayed =
-            isJust maybeConfig
+            maybeConfig /= Nothing
     in
     div
         (case
@@ -92,7 +90,9 @@ view maybeConfig =
 
                         Just config ->
                             [ wrapHeader config.closeMessage config.header
-                            , maybe empty wrapBody config.body
+                            , config.body
+                                |> Maybe.map wrapBody
+                                |> Maybe.withDefault empty
                             , wrapFooter config.footer
                             ]
                     )
@@ -110,7 +110,9 @@ wrapHeader closeMessage header =
     else
         div [ class "modal-header" ]
             [ h5 [ class "modal-title" ] [ Maybe.withDefault empty header ]
-            , maybe empty closeButton closeMessage
+            , closeMessage
+                |> Maybe.map closeButton
+                |> Maybe.withDefault empty
             ]
 
 
@@ -134,7 +136,7 @@ wrapFooter footer =
 
 backdrop : Maybe (Config msg) -> Html msg
 backdrop config =
-    div [ classList [ ( "modal-backdrop show", isJust config ) ] ]
+    div [ classList [ ( "modal-backdrop show", config /= Nothing ) ] ]
         []
 
 
@@ -176,3 +178,8 @@ map f config =
 mapMaybe : (a -> b) -> Maybe (Config a) -> Maybe (Config b)
 mapMaybe =
     Maybe.map << map
+
+
+empty : Html msg
+empty =
+    span [] []
